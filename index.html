@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TXT to MP3 Converter</title>
+    <script src="jszip.min.js"></script>
+    <script src="lamejs.min.js"></script>
+</head>
+<body>
+    <input type="file" id="txtFile" accept=".txt">
+    <script>
+        const txtFile = document.getElementById('txtFile');
+
+        txtFile.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const   
+ textContent = event.target.result;
+
+                    const lame = new lamejs();
+                    lame.setMP3Quality(0);
+
+                    const mp3Data = lame.encodeBuffer(new Int16Array(textContent.length));
+
+                    const blob = new Blob([new Uint8Array(mp3Data)]);
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'output.mp3';
+                    a.click();
+                };
+                reader.readAsText(file);
+            }
+        });
+    </script>
+</body>
+</html>
