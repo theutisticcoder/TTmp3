@@ -7,7 +7,7 @@
     <input type="file" id="txtFile" accept=".txt">
     <script>
         const txtFile = document.getElementById('txtFile');
-
+        const lame = new lamejs();
         txtFile.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
@@ -16,7 +16,7 @@
                     const   
  textContent = event.target.result;
 
-                    const lame = new lamejs();
+                  
 
                     const mp3Data = lame.encodeBuffer(new Int16Array(textContent.length));
 
